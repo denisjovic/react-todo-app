@@ -8,9 +8,12 @@ function App() {
   const finishedTodos = todos.filter((todo) => todo.done);
   const activeTodos = todos.filter((todo) => !todo.done);
 
+  const numOfActiveTodos = activeTodos.length;
+
+  const numOfTodos = todos.length;
+
   function addTodo() {
     const textInput = document.getElementById('text-input');
-    const numOfTodos = todos.length;
     const newTodo = { id: numOfTodos + 1, done: false, name: currentTodo };
     if (textInput.value) {
       todos.push(newTodo);
@@ -42,7 +45,12 @@ function App() {
       <button id='add-todo' onClick={() => addTodo()}>
         Add task
       </button>
-      <h2>Todo:</h2>
+
+      {numOfActiveTodos > 0 ? (
+        <h2>Todo:</h2>
+      ) : (
+        <h2>Nothing to do, enjoy your day!</h2>
+      )}
       {activeTodos.map((todo) => {
         return (
           <ActiveTodo>
@@ -56,7 +64,7 @@ function App() {
         );
       })}
 
-      <h2>Done:</h2>
+      {numOfTodos > 0 && <h2>Done:</h2>}
       {finishedTodos.map((todo) => {
         return (
           <FinishedTodo>
